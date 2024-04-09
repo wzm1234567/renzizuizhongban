@@ -16,6 +16,7 @@ module.exports = defineConfig({
     host: "0.0.0.0",
     https: false,
     open: true,
+    port: "8888",
     proxy: {
       [process.env.VUE_APP_BASE_API]: {
         target: process.env.VUE_APP_BASE_URL,
@@ -47,6 +48,6 @@ module.exports = defineConfig({
       })
       .end()
     // eslint-disable-next-line no-undef
-    config.plugin("gotHash").use(HotHashWebpackPlugin, [{ version: "1.0.0" }])
+    // config.plugin("gotHash").use(HotHashWebpackPlugin, [{ version: "1.0.0" }])
   }
 })

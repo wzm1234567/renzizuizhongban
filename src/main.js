@@ -2,10 +2,13 @@ import Vue from "vue"
 import App from "./App.vue"
 import router from "./router"
 import store from "./store"
-import { Button, Select } from "element-ui"
+import { Button, Form, FormItem, Input } from "element-ui"
+
 Vue.config.productionTip = false
 Vue.use(Button)
-Vue.use(Select)
+Vue.use(Form)
+Vue.use(FormItem)
+Vue.use(Input)
 Vue.config.productionTip = false
 
 new Vue({
