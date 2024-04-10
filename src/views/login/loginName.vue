@@ -3,13 +3,13 @@
     <header>
       <h1>iHRM 后台登录系统</h1>
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" class="demo-ruleForm">
-        <el-form-item prop="name">
-          <el-input placeholder="请输入您手机号" v-model="ruleForm.name">
+        <el-form-item prop="mobile">
+          <el-input placeholder="请输入您手机号" v-model="ruleForm.mobile">
             <i slot="prefix" class="el-icon-user-solid"></i>
           </el-input>
         </el-form-item>
-        <el-form-item prop="Password">
-          <el-input placeholder="请输入您的密码" v-model="ruleForm.Password" show-password>
+        <el-form-item prop="password">
+          <el-input placeholder="请输入您的密码" v-model="ruleForm.password" show-password>
             <i slot="prefix" class="el-icon-s-goods" style="margin-top: 5px"></i>
           </el-input>
         </el-form-item>
@@ -26,16 +26,18 @@
   </div>
 </template>
 <script>
+import { loginapi } from "@/api/api"
+import { settoken } from "@/utils/auth"
 export default {
   data() {
     return {
       ruleForm: {
-        name: "",
-        Password: ""
+        mobile: "13800000002",
+        password: "888itcast.CN764%..."
       },
       rules: {
-        name: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
-        Password: [{ required: true, message: "密码不能为空", trigger: "blur" }]
+        mobile: [{ required: true, message: "手机号不能为空", trigger: "blur" }],
+        password: [{ required: true, message: "密码不能为空", trigger: "blur" }]
       }
     }
   },
@@ -43,7 +45,13 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert("submit!")
+          loginapi(this.ruleForm).then((res) => {
+            console.log(res)
+            if (res.data.code == 10000) {
+              this.$router.push("/index")
+              settoken(res.data.data)
+            }
+          })
         } else {
           console.log("error submit!!")
           return false
